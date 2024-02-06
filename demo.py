@@ -1,100 +1,8 @@
 from pprint import pprint
-import numpy as np
-import matplotlib.pyplot as plt
-def make_text_vectorization_layer(train_ds,  max_tokens=None, 
-                                  split='whitespace',
-                                  standardize="lower_and_strip_punctuation",
-                                  output_mode="int",
-                                  output_sequence_length=None,
-                                  ngrams=None, pad_to_max_tokens=False,
-                                  verbose=True,
-                                  **kwargs,
-                                 ):
-    # Build the text vectorization layer
-    text_vectorizer = tf.keras.layers.TextVectorization(
-        max_tokens=max_tokens,
-        standardize=standardize, 
-        output_mode=output_mode,
-        output_sequence_length=output_sequence_length,
-        **kwargs
-    )
-    # Get just the text from the training data
-    if isinstance(train_ds, (np.ndarray, list, tuple, pd.Series)):
-        ds_texts = train_ds
-    else:
-        try:
-            ds_texts = train_ds.map(lambda x, y: x )
-        except:
-            ds_texts = train_ds
-            
-    # Fit the layer on the training texts
-    text_vectorizer.adapt(ds_texts)
-    
-    
-    if verbose:
-        # Print the params
-        print( "\ntf.keras.layers.TextVectorization(" )
-        config = text_vectorizer.get_config()
-        pprint(config,indent=4)
-        print(")")
-               
-    # SAVING VOCAB FOR LATER
-    # Getting list of vocab 
-    vocab = text_vectorizer.get_vocabulary()
-    # Save dictionaries to look up words from ints 
-    int_to_str  = {idx:word for idx, word in enumerate(vocab)}
-    
-    return text_vectorizer, int_to_str
-
-
-from pprint import pprint
-def make_text_vectorization_layer(train_ds,  max_tokens=None, 
-                                  split='whitespace',
-                                  standardize="lower_and_strip_punctuation",
-                                  output_mode="int",
-                                  output_sequence_length=None,
-                                  ngrams=None, pad_to_max_tokens=False,
-                                  verbose=True,
-                                  **kwargs,
-                                 ):
-    # Build the text vectorization layer
-    text_vectorizer = tf.keras.layers.TextVectorization(
-        max_tokens=max_tokens,
-        standardize=standardize, 
-        output_mode=output_mode,
-        output_sequence_length=output_sequence_length,
-        **kwargs
-    )
-    # Get just the text from the training data
-    if isinstance(train_ds, (np.ndarray, list, tuple, pd.Series)):
-        ds_texts = train_ds
-    else:
-        try:
-            ds_texts = train_ds.map(lambda x, y: x )
-        except:
-            ds_texts = train_ds
-            
-    # Fit the layer on the training texts
-    text_vectorizer.adapt(ds_texts)
-    
-    
-    if verbose:
-        # Print the params
-        print( "\ntf.keras.layers.TextVectorization(" )
-        config = text_vectorizer.get_config()
-        pprint(config,indent=4)
-        print(")")
-               
-    # SAVING VOCAB FOR LATER
-    # Getting list of vocab 
-    vocab = text_vectorizer.get_vocabulary()
-    # Save dictionaries to look up words from ints 
-    int_to_str  = {idx:word for idx, word in enumerate(vocab)}
-    
-    return text_vectorizer, int_to_str
-
-
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+import numpy as np
+
 def classification_metrics(y_true, y_pred, label='',
                            output_dict=False, figsize=(8,4),
                            normalize='true', cmap='Blues',
@@ -370,3 +278,6 @@ def make_text_vectorization_layer(train_ds,  max_tokens=None,
     int_to_str  = {idx:word for idx, word in enumerate(vocab)}
     
     return text_vectorizer, int_to_str
+
+def demo_function(name):
+    print(f'Hello, {name}!')
