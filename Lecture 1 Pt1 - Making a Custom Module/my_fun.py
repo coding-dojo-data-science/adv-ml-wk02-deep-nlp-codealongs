@@ -1,7 +1,5 @@
-from pprint import pprint
-from sklearn.metrics import classification_report, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
-import numpy as np
+def add_two_numbers(a, b):
+    return a + b
 
 def classification_metrics(y_true, y_pred, label='',
                            output_dict=False, figsize=(8,4),
@@ -234,6 +232,7 @@ def get_true_pred_labels(model,ds):
     y_pred_probs = np.array(y_pred_probs)
     
     return y_true, y_pred_probs
+
 def make_text_vectorization_layer(train_ds,  max_tokens=None, 
                                   split='whitespace',
                                   standardize="lower_and_strip_punctuation",
@@ -278,8 +277,3 @@ def make_text_vectorization_layer(train_ds,  max_tokens=None,
     int_to_str  = {idx:word for idx, word in enumerate(vocab)}
     
     return text_vectorizer, int_to_str
-
-def demo_function(name):
-    print(f'Hello, {name}!')
-def demo2_function(name):
-    print(f'Hello, {name}!')
